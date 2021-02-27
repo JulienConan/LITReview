@@ -1,0 +1,51 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<h2 class="text-center">Création critique</h2>
+<form id='form'>
+    <div id="formulaire-ticket">
+        <h3>Livre / Article</h3>
+        <div class="form-group">
+            <label class="col-md-4 control-label text-center">Titre:</label>
+            <div class="col-md-6 w-50 mx-auto">
+                {{ form_ticket.title }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label text-center">Description:</label>
+            <div class="col-md-6 w-50 mx-auto">
+                {{ form_ticket.description }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label text-center">Image:</label>
+            <div class="col-md-6 w-50 mx-auto">
+                {{ form_ticket.image }}
+            </div>
+        </div>
+    </div>
+    <div id="formulaire-review">
+        <h3>Critique</h3>
+        <div class="form-group">
+            <label class="col-md-4 control-label text-center">Titre:</label>
+            <div class="col-md-6 w-50 mx-auto">
+                {{ form_review.headline }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label text-center">Note:</label>
+            <div class="col-md-6 w-50 mx-auto">
+                {{ form_review.rating }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label text-center">Commentaire:</label>
+            <div class="col-md-6 w-50 mx-auto">
+                {{ form_review.body }}
+            </div>
+        </div>
+    </div>
+    <button class="button w-10 mx-auto" type="submit">Envoyer</button>
+</form>
+	
+{% endblock %}

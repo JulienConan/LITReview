@@ -1,0 +1,66 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+<div class="container border row w-50 mx-auto">
+	<div class="create">
+		<button class="button"><a href="{% url 'create_ticket'%}">Demander une critique</a></button>
+		<button class="button"><a href="{% url 'create_review'%}"> Créer une critique</a></button>
+
+	</div>
+</div>
+
+<div class="post container border row w-50 mx-auto" >
+	{% if user.is_authenticated %}
+		{% for data in datas %}
+			{% if data.0 == "ticket" %}
+				<div class="ticket border my-2">
+					<div class="entete ">
+						{% if data.1.user == user %}
+							<p>Vous avez publié un ticket</p>
+						{% else %}
+							<p>{{ data.1.user}} a demandé une critique</p>
+						{% endif %}
+						<p>{{ data.1.time_created}}</p>				
+					</div>
+					<p>{{ data.1.title }}</p>
+					<p>{{ data.1.description }}</p>
+					<img src="{{ data.1.image }}" alt="Image du ticket"></img>
+					<div class="buttons">
+							<button class="button" href="{% url 'modify_ticket' data.1.pk %}">Modifier</button>
+							<button class="button" >Supprimer</button>
+						</form>
+					</div>
+				</div>
+			{% endif %}
+			{% if data.0 == "review" %}
+				<div class="review border my-2 ">
+					<div class="entete">
+						<p>Vous avez publié une critique</p>
+						<p>{{ data.1.time_created}}</p>
+					</div>
+					<p>{{ data.1.headline }} - {{ data.1.rating }}</p>
+					<p>{{ data.1.body }}</p>
+					<div class="ticket-review border">
+						<div class="entete">
+							{% if data.1.user == user %}
+								<p>Ticket - Vous</p>
+							{% else %}
+								<p>Ticket - {{ data.1.ticket.user }}</p>
+							{% endif %}
+							<p>{{ data.1.ticket.time_created}}</p>				
+						</div>
+						<p>{{ data.1.ticket.title }}</p>
+						<img src="{{ data1.image }}" alt="Image du ticket"></img>
+					</div>
+					<div class="buttons">
+						<button class="button" href="">Modifier</button>
+						<button class="button" >Supprimer</button>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+</div>
+
+{% endblock %}

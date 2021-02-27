@@ -1,0 +1,30 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<form id='form'>
+	
+	<h2 class="text-center">Création ticket</h2>
+	<div id="formulaire">
+        <div class="form-group">
+            <label class="col-md-4 control-label text-center">Titre:</label>
+            <div class="col-md-6 w-50 mx-auto">
+                {{ form.title }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label text-center">Description:</label>
+            <div class="col-md-6 w-50 mx-auto">
+                {{ form.description }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label text-center">Image:</label>
+            <div class="col-md-6 w-50 mx-auto">
+                {{ form.image }}
+            </div>
+        </div>
+	</div>
+<button class="button w-10 mx-auto" type="submit">Envoyer</button>
+</form>
+	
+{% endblock %}

@@ -10,16 +10,15 @@ def main(request, id =None):
         form = UserForm()
         username = request.POST['username']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(username=username, password=password)
 
         if user is not None:
-            return render(request, 'authentification/authentification.html', {
-                'error_message' : 'Bonne saisie',
-                'form' : form})
+                login(request, user)
+                return render(request, 'blog/home.html')
         
         else:
             return render(request, 'authentification/authentification.html', {
-                'error_message' : 'Les champs renseignés sont invalides',
+                'error_message' : "Nom d'utilisateur ou mot de passe invalide",
                 'form' : form})
 
     else:

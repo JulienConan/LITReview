@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# User
+Specs/
+liste_utilisateurs
+
 # C extensions
 *.so
 

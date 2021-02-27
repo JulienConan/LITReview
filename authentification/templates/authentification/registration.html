@@ -1,0 +1,42 @@
+{% extends "authentification/base.html" %}
+
+{% block content %}
+
+<form action="{% url 'registration' %}" method="post">
+    {% csrf_token %}
+    <div class="container border row w-50 mx-auto">
+        <div id=title class="text-center">
+            <h2>Inscrivez-vous</h2>
+        </div>
+        {% if error_message %}
+            <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+        {% endif %}
+        <div class="form-registration text-center">
+            <div class="form-group">
+                <label class="col-md-4 control-label text-right">Nom d'utilisateur:</label>
+                <div class="col-md-6 w-50 mx-auto">
+                    {{ form.username }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label text-right">Mot de passe:</label>
+                <div class="col-md-6 w-50 mx-auto">
+                    {{ form.password }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label text-right">Confirmer mot de passe:</label>
+                <div class="col-md-6 w-50 mx-auto">
+                    {{ form.password_repeat }}
+                </div>
+            </div>
+        </div>
+        <div class = "w-50 mx-auto">
+            <button class="button"><a href="{% url 'main' %}">Retourner</a><button>
+            <button class="button" type="submit">S'inscrire</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
