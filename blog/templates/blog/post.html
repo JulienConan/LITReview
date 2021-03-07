@@ -13,11 +13,10 @@
 					</div>
 					<p>{{ data.1.title }}</p>
 					<p>{{ data.1.description }}</p>
-					<img src="{{ data.1.image }}" alt="Image du ticket"></img>
+					<img src="{{ data.1.image.path }}" alt="Image du ticket {{ data.1.name }}">
 					<div class="buttons">
 							<button class="button" href="{% url 'modify_ticket' data.1.pk %}">Modifier</button>
 							<button class="button" >Supprimer</button>
-						</form>
 					</div>
 				</div>
 			{% endif %}
@@ -35,7 +34,7 @@
 							<p>{{ data.1.ticket.time_created}}</p>				
 						</div>
 						<p>{{ data.1.ticket.title }}</p>
-						<img src="{{ data1.image }}" alt="Image du ticket"></img>
+						<img src="{{ data1.image.path }}" alt="Image du ticket">
 					</div>
 					<div class="buttons">
 						<button class="button" href="">Modifier</button>

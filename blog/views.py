@@ -10,7 +10,7 @@ def home(request):
     tickets = [ticket for ticket in Ticket.objects.all()]
     reviews = [review for review in Review.objects.all()]
     datas = tickets + reviews
-    datas = sorted(datas, key= lambda data: data.time_created)
+    datas = sorted(datas, key= lambda data: data.time_created, reverse=True)
     datas_type = []
     for data in datas:
         if isinstance(data, Ticket):
@@ -21,36 +21,43 @@ def home(request):
     return render(request, 'blog/home.html', {'datas' : datas_type})
 
 def create_ticket(request):
-    form = TicketForm()
-    return render(request, 'blog/create_ticket.html', {'form' : form})
+    if request.method == 'POST':
+        print(request)
+        form = TicketForm(request.POST)
+        ticket = form.save(commit=False)
+        ticket.user = request.user
+        ticket.save()
+        return render(request, 'blog/home.html')
+
+    else:
+        print('pas une requete post')
+        form = TicketForm()
+        return render(request, 'blog/create_ticket.html', {'form' : form})
 
 def modify_ticket(request, _id):
     try:
         old_ticket = Ticket.objects.get(id=_id)
+        print('lkqjsqld')
     except Ticket.DoesNotExist:
         raise Http404("Le Ticket n'existe pas !")
 
-    if request.method == 'POST':
-        form = TicketForm(request.POST, instance=old_ticket)
+    form = old_ticket
 
-        if form.is_valid():
-            form.save()
-            return redirect('/home')
-        else:
-            print('formulaire invalide')
-            form = TicketForm(instance=old_ticket)
-            return render(request, 'blog/modify_ticket.html', {'form' : form})
-
+    if form.is_valid():
+        form.save()
+        return redirect('/home')
     else:
+        print('formulaire invalide')
         form = TicketForm(instance=old_ticket)
         return render(request, 'blog/modify_ticket.html', {'form' : form})
 
 def delete_ticket(request, _id):
     ticket_to_delete = Ticket.objects.filter(pk=_id).delete()
-    post()
+    return render(request, 'blog/home.html')
 
 
 def create_review(request):
+
     form_review = ReviewForm()
     form_ticket = TicketForm()
     return render(request, 'blog/create_review.html', {'form_review' : form_review, 'form_ticket' : form_ticket})
@@ -83,7 +90,7 @@ def post(request):
     tickets = [ticket for ticket in Ticket.objects.filter(user=request.user)]
     reviews = [review for review in Review.objects.filter(user=request.user)]
     datas = tickets + reviews
-    datas = sorted(datas, key= lambda data: data.time_created)
+    datas = sorted(datas, key= lambda data: data.time_created, reverse=True)
     datas_type = []
     for data in datas:
         if isinstance(data, Ticket):
