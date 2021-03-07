@@ -28,8 +28,8 @@
 					<img src="{{ data.1.image.path }}" alt="Image du ticket {{ data.1.title}}">
 					{% if data.1.user == user %}
 						<div class="buttons">
-							<button class="button" href="{% url 'modify_ticket' data.1.pk %}">Modifier</button>
-							<button class="button" href="127.0.0.1:8000">Supprimer</button>
+							<button class="button"><a href="{% url 'modify_ticket' data.1.pk %}">Modifier</a></button>
+							<button class="button"><a href="{% url 'delete_ticket' data.1.pk %}">Supprimer</a></button>
 						</div>
 					{% endif %}
 				</div>
@@ -56,7 +56,7 @@
 					</div>
 					{% if data.1.user == user %}
 						<div class="buttons">
-							<button class="button" href="">Modifier</button>
+							<button class="button"><a href="{% url 'modify_review' data.1.pk %}">Modifier</a></button>
 							<button class="button" >Supprimer</button>
 						</div>
 					{% endif %}

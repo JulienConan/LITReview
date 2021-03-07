@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from authentification.forms import UserForm, RegisterForm
 from authentification.models import CustomUser
@@ -14,7 +14,7 @@ def main(request, id =None):
 
         if user is not None:
                 login(request, user)
-                return render(request, 'blog/home.html')
+                return redirect('flux')
         
         else:
             return render(request, 'authentification/authentification.html', {

@@ -10,4 +10,4 @@ class TicketForm(ModelForm):
 class ReviewForm(ModelForm):
 	class Meta:
 		model = Review
-		fields = ['headline', 'rating', 'body']
+		fields = ['ticket', 'headline', 'rating', 'body']
