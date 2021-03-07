@@ -28,13 +28,11 @@ def flux(request):
 def create_ticket(request):
     if request.user.is_authenticated :
         if request.method == 'POST':
-            print(request.POST['image'])
-            print(dir(request.POST['image']))
-
-            ticket=Ticket(user=request.user)
-            form = TicketForm(request.POST, instance=ticket)
-            if form.is_valid():
-                form.save()
+            ticket=Ticket(title=request.POST['title'],
+                description=request.POST['description'],
+                image=request.FILES['image'],
+                user=request.user)
+            ticket.save()
             return redirect('flux')
 
         else:

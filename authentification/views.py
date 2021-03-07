@@ -45,9 +45,7 @@ def registration(request, id=None):
         else:
             user = CustomUser.objects.create_user(username=username, password=password)
             user.save()
-            return render(request, 'authentification/registration.html', {
-            'error_message' : "ok",
-            'form' : form})
+            return redirect('')
 
     else:
         form = RegisterForm()

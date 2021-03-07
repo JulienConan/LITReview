@@ -25,7 +25,7 @@
 					</div>
 					<p>{{ data.1.title }}</p>
 					<p>{{ data.1.description }}</p>
-					<img src="{{ data.1.image.path }}" alt="Image du ticket {{ data.1.title}}">
+					<img src="{{ data.1.image.url }}" alt="Image du ticket {{ data.1.title}}" style="max-height:300px">
 					{% if data.1.user == user %}
 						<div class="buttons">
 							<button class="button"><a href="{% url 'modify_ticket' data.1.pk %}">Modifier</a></button>
@@ -52,7 +52,7 @@
 							<p>{{ data.1.ticket.time_created}}</p>				
 						</div>
 						<p>{{ data.1.ticket.title }}</p>
-						<img src="{{ data1.image.path }}" alt="Image de la critique">
+						<img src="{{ data.1.ticket.image.url }}" alt="Image de la critique" style="max-height:300px">
 					</div>
 					{% if data.1.user == user %}
 						<div class="buttons">
