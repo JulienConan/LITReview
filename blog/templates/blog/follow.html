@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div class="post container border row w-50 mx-auto" >
+	<h2 class="text-center">Suivre d'autres utilisateurs</h2>
+	<form method="post">
+    	{% csrf_token %}
+	<div>
+		<input type="text" id="followed_user" name="followed_user">
+		<button class="button" type="submit">Envoyer</button>
+	</div>
+	</form>	
+</div>
+<div class="post container border row w-50 mx-auto" >
+	<h2 class="text-center">Abonnements</h2>
+	<div>
+		{% for user in followed_user %}
+			<div>
+				{{ user.followed_user }}
+				<button class="button"><a href="{% url 'delete_follow' user.pk %}">Désabonner</a></button>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+<div class="post container border row w-50 mx-auto" >
+	<h2 class="text-center">Abonnés</h2>
+	<div>
+		{% for user in users_follow_user %}
+			<div>
+				{{ user.user }}
+			</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

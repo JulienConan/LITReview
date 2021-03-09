@@ -2,14 +2,19 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 from authentification.views import main
 from blog.forms import TicketForm, ReviewForm
-from blog.models import Ticket, Review
+from blog.models import Ticket, Review, UserFollows
+from authentification.models import CustomUser
+
 
 def flux(request):
     if request.user.is_authenticated:
-        tickets = [ticket for ticket in Ticket.objects.all()]
+        users_list_flux = [user.followed_user for user in UserFollows.objects.filter(user=request.user)]
+        users_list_flux += CustomUser.objects.filter(username=request.user)
+        tickets = [ticket for user in users_list_flux for ticket in Ticket.objects.filter(user=user)]
         reviews = [review for review in Review.objects.all()]
         datas = tickets + reviews
         datas = sorted(datas, key= lambda data: data.time_created, reverse=True)
@@ -163,6 +168,31 @@ def post(request):
 
         return render(request, 'blog/post.html', {'datas' : datas_type})
     else :
+        return redirect('main')
+
+def follow(request):
+    if request.user.is_authenticated :
+        if request.method == 'POST':
+            try:
+                followed_user = CustomUser.objects.get(username=request.POST['followed_user'])
+            except ObjectDoesNotExist:
+                return redirect('follow')
+            user = CustomUser.objects.get(username=request.user)
+            new_user_followed = UserFollows(user=user, followed_user=followed_user)
+            new_user_followed.save()
+            return redirect('follow')
+        else:
+            followed_user = UserFollows.objects.filter(user=request.user)
+            users_follow_user = UserFollows.objects.filter(followed_user=request.user)
+            return render(request, 'blog/follow.html', {'followed_user' : followed_user, 'users_follow_user' : users_follow_user})
+    else : 
+        return redirect('main')
+
+def delete_follow(request, _id):
+    if request.user.is_authenticated:
+        user_follow = UserFollows.objects.get(pk=_id).delete()
+        return redirect('follow')
+    else : 
         return redirect('main')
 
 def logout_request(request):

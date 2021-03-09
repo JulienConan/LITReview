@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 
 from authentification.forms import UserForm, RegisterForm
 from authentification.models import CustomUser
+from blog.models import UserFollows
 
 def main(request, id =None):
 
@@ -44,7 +45,6 @@ def registration(request, id=None):
                 'form' : form})
         else:
             user = CustomUser.objects.create_user(username=username, password=password)
-            user.save()
             return redirect('')
 
     else:
