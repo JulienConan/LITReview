@@ -47,10 +47,10 @@ def modify_ticket(request, _id):
     if request.user.is_authenticated :
         ticket = get_object_or_404(Ticket, pk=_id)
         if request.method == 'POST' :
-            form = TicketForm(request.POST, instance=ticket)
+            form = TicketForm(request.POST, request.FILES, instance=ticket)
             if form.is_valid():
                 form.save()
-            return redirect('flux')
+            return redirect('post')
         else:
             form = TicketForm(instance = ticket)
             return render(request, 'blog/modify_ticket.html', {'form' : form})
@@ -63,7 +63,7 @@ def delete_ticket(request, _id):
         ticket_to_delete = get_object_or_404(Ticket, pk=_id)
         if ticket_to_delete.user == request.user:
             ticket_to_delete.delete()
-        return redirect('flux')
+        return redirect('post')
     else :
         return redirect('main')
 
@@ -71,37 +71,80 @@ def delete_ticket(request, _id):
 def create_review(request):
     if request.user.is_authenticated :
         if request.method == 'POST':
-            ticket = Ticket(user=request.user)
-            review = Review(user=request.user)
-            form_ticket = TicketForm(request.POST, instance=ticket)
-            if form_ticket.is_valid():
-                form_ticket.save()
+            print(request.POST)
+            ticket=Ticket(title=request.POST['title'],
+                description=request.POST['description'],
+                image=request.FILES['image'],
+                user=request.user,
+                response=True)
+            ticket.save()
+            review = Review(ticket=ticket,
+                rating=request.POST['rating'],
+                headline=request.POST['headline'],
+                body=request.POST['body'],
+                user=request.user)
+            review.save()
+            return redirect('flux')
 
         else:
-            form_review = ReviewForm()
+
             form_ticket = TicketForm()
+            form_review = ReviewForm()
             return render(request, 'blog/create_review.html', {'form_review' : form_review, 'form_ticket' : form_ticket})
     else :
         return redirect('main')
+
+def create_response_review(request, _id):
+    if request.user.is_authenticated :
+        if request.method == 'POST':
+            ticket=get_object_or_404(Ticket, pk=_id)
+            ticket.response = True
+            ticket.save()
+            review = Review(ticket=ticket,
+                rating=request.POST['rating'],
+                headline=request.POST['headline'],
+                body=request.POST['body'],
+                user=request.user)
+            review.save()
+            print('save')
+            return redirect('flux')
+
+        else:
+            ticket = get_object_or_404(Ticket, pk=_id)
+            form_review = ReviewForm()
+            return render(request, 'blog/create_response_review.html', {'form_review' : form_review, 'ticket' : ticket})
+    else :
+        return redirect('main')
+    pass
 
 
 def modify_review(request, _id):
     if request.user.is_authenticated :
         review = get_object_or_404(Review, pk=_id)
         if request.method == 'POST':
-            form = ReviewForm(request.POST, instance=review)
+            form = ReviewForm(request.POST, instance = review)
             if form.is_valid():
                 form.save()
-                return redirect('flux')
+                return redirect('post')
             else:
-                pass
-
+                print('prout')
         else:
             form_review = ReviewForm(instance=review)
-            ticket = Ticket(review.ticket)
             return render(request, 'blog/modify_review.html', {
                 'form_review' : form_review,
-                'ticket' : ticket})
+                'ticket' : review.ticket})
+    else :
+        return redirect('main')
+
+def delete_review(request, _id):
+    if request.user.is_authenticated :
+        review_to_delete = get_object_or_404(Review, pk=_id)
+        if review_to_delete.user == request.user:
+            ticket = review_to_delete.ticket
+            ticket.response = False
+            ticket.save()
+            review_to_delete.delete()
+        return redirect('post')
     else :
         return redirect('main')
 

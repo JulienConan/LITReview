@@ -13,10 +13,10 @@
 					</div>
 					<p>{{ data.1.title }}</p>
 					<p>{{ data.1.description }}</p>
-					<img src="{{ data.1.image.path }}" alt="Image du ticket {{ data.1.name }}">
+					<img src="{{ data.1.image.url}}" alt="Image du ticket {{ data.1.name }}" style="max-height:300px">
 					<div class="buttons">
-							<button class="button" href="{% url 'modify_ticket' data.1.pk %}">Modifier</button>
-							<button class="button" >Supprimer</button>
+							<button class="button"><a href="{% url 'modify_ticket' data.1.pk %}">Modifier</a></button>
+							<button class="button"><a href="{% url 'delete_ticket' data.1.pk %}">Supprimer</a></button>
 					</div>
 				</div>
 			{% endif %}
@@ -30,15 +30,21 @@
 					<p>{{ data.1.body }}</p>
 					<div class="ticket-review border">
 						<div class="entete">
-							<p>Ticket - Vous</p>
-							<p>{{ data.1.ticket.time_created}}</p>				
+							{% if data.1.ticket.user == user %}
+								<p>Ticket - Vous</p>
+							{% else %}
+								<p>Ticket - {{ data.1.ticket.user }}</p>
+							{% endif %}
+
+							<p>{{ data.1.ticket.time_created}}</p>	
 						</div>
 						<p>{{ data.1.ticket.title }}</p>
-						<img src="{{ data1.image.path }}" alt="Image du ticket">
+						<p>{{ data.1.ticket.description }}</p>
+						<img src="{{ data.1.ticket.image.url }}" alt="Image du ticket" style="max-height:300px">
 					</div>
 					<div class="buttons">
-						<button class="button" href="">Modifier</button>
-						<button class="button" >Supprimer</button>
+						<button class="button"><a href="{% url 'modify_review' data.1.pk %}">Modifier</a></button>
+						<button class="button"><a href="{% url 'delete_review' data.1.pk %}">Supprimer</a></button>
 					</div>
 				</div>
 			{% endif %}

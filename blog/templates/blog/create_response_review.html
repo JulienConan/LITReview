@@ -1,33 +1,24 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
-<h2 class="text-center">Modification critique</h2>
-<form id='form' method="post">
+<h2 class="text-center">Création critique</h2>
+<form method='post' enctype="multipart/form-data">
     {% csrf_token %}
     <div id="formulaire-ticket">
-        <h3>Vous êtes en train de poster en réponse à</h3>
-        <div class="review-ticket">
-            <div>
-                {% if ticket.user == user %}
-                    <p>Vous avez demandé une critique </p>
-                {% else %}
-                    <p> {{ ticket.user }} a demandé une critique </p>
-                {% endif %}
-
+        <p>Vous êtes en train de poster en réponse à</p>
+        <div class="ticket">
+            {% if ticket.user == user %}
+                <p>Vous avez publié un ticket</p>
+            {% else %}
+                <p>{{ ticket.user}} a demandé une critique</p>
+            {% endif %}
+            <p>{{ ticket.time_created}}</p>             
             </div>
-            <div>
-                <p>{{ ticket.time_created }}</p>
-            </div>
-            <div class="col-md-6 w-50 mx-auto">
-                {{ ticket.title }}
-            </div>
-            <div class="col-md-6 w-50 mx-auto">
-                {{ ticket.description }}
-            </div>
-            <div class="col-md-6 w-50 mx-auto">
-                <img src="{{ ticket.image.url }}">
-            </div>           
+            <p>{{ ticket.title }}</p>
+            <p>{{ ticket.description }}</p>
+            <img src="{{ ticket.image.url }}" alt="Image du ticket {{ data.1.title}}" style="max-height:300px">
         </div>
+
     </div>
     <div id="formulaire-review">
         <h3>Critique</h3>

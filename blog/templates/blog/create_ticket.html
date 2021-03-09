@@ -1,9 +1,8 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
-<form method="post" enctype="multipart/form-data">>
-    {% csrf_token %}
-	
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}	
 	<h2 class="text-center">Création ticket</h2>
 	<div id="formulaire">
         <div class="form-group">

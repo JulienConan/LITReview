@@ -2,7 +2,8 @@
 
 {% block content %}
 <h2 class="text-center">Création critique</h2>
-<form id='form'>
+<form method='post' enctype="multipart/form-data">
+    {% csrf_token %}
     <div id="formulaire-ticket">
         <h3>Livre / Article</h3>
         <div class="form-group">
@@ -23,6 +24,7 @@
                 {{ form_ticket.image }}
             </div>
         </div>
+
     </div>
     <div id="formulaire-review">
         <h3>Critique</h3>

@@ -5,7 +5,7 @@
 <div class="container border row w-50 mx-auto">
 	<div class="create">
 		<button class="button"><a href="{% url 'create_ticket'%}">Demander une critique</a></button>
-		<button class="button"><a href="{% url 'create_review'%}"> Créer une critique</a></button>
+		<button class="button"><a href="{% url 'create_review' %}"> Créer une critique</a></button>
 
 	</div>
 </div>
@@ -26,11 +26,8 @@
 					<p>{{ data.1.title }}</p>
 					<p>{{ data.1.description }}</p>
 					<img src="{{ data.1.image.url }}" alt="Image du ticket {{ data.1.title}}" style="max-height:300px">
-					{% if data.1.user == user %}
-						<div class="buttons">
-							<button class="button"><a href="{% url 'modify_ticket' data.1.pk %}">Modifier</a></button>
-							<button class="button"><a href="{% url 'delete_ticket' data.1.pk %}">Supprimer</a></button>
-						</div>
+					{% if data.1.response == False %}
+						<button class="button"><a href="{% url 'create_response_review' data.1.pk %}">Créer une critique</a></button>
 					{% endif %}
 				</div>
 			{% endif %}
@@ -52,14 +49,9 @@
 							<p>{{ data.1.ticket.time_created}}</p>				
 						</div>
 						<p>{{ data.1.ticket.title }}</p>
+						<p>{{ data.1.ticket.description }}</p>
 						<img src="{{ data.1.ticket.image.url }}" alt="Image de la critique" style="max-height:300px">
 					</div>
-					{% if data.1.user == user %}
-						<div class="buttons">
-							<button class="button"><a href="{% url 'modify_review' data.1.pk %}">Modifier</a></button>
-							<button class="button" >Supprimer</button>
-						</div>
-					{% endif %}
 				</div>
 			{% endif %}
 		{% endfor %}
