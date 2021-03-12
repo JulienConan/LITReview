@@ -1,20 +1,20 @@
 {% extends "blog/base.html" %}
 
+{% block titre %}
+	Flux
+{% endblock %}
+
 {% block content %}
-
-<div class="container border row w-50 mx-auto">
-	<div class="create">
-		<button class="button"><a href="{% url 'create_ticket'%}">Demander une critique</a></button>
-		<button class="button"><a href="{% url 'create_review' %}"> Créer une critique</a></button>
-
-	</div>
+<div class="action">
+		<button class="button action-button"><a href="{% url 'create_ticket'%}">Demander une critique</a></button>
+		<button class="button action-button"><a href="{% url 'create_review' %}"> Créer une critique</a></button>
 </div>
 
-<div class="post container border row w-50 mx-auto" >
+<div class="container row w-50 mx-auto" >
 	{% if user.is_authenticated %}
 		{% for data in datas %}
 			{% if data.0 == "ticket" %}
-				<div class="ticket border my-2">
+				<div class="post ticket border my-2">
 					<div class="entete ">
 						{% if data.1.user == user %}
 							<p>Vous avez publié un ticket</p>
@@ -25,19 +25,25 @@
 					</div>
 					<p>{{ data.1.title }}</p>
 					<p>{{ data.1.description }}</p>
-					<img src="{{ data.1.image.url }}" alt="Image du ticket {{ data.1.title}}" style="max-height:300px">
+					<img class="img" src="{{ data.1.image.url }}" alt="Image du ticket {{ data.1.title}}">
 					{% if data.1.response == False %}
 						<button class="button"><a href="{% url 'create_response_review' data.1.pk %}">Créer une critique</a></button>
 					{% endif %}
 				</div>
 			{% endif %}
 			{% if data.0 == "review" %}
-				<div class="review border my-2 ">
+				<div class="post review border my-2">
 					<div class="entete">
-						<p>Vous avez publié une critique</p>
-						<p>{{ data.1.time_created}}</p>
+						<p class="entete-title">Vous avez publié une critique</p>
+						<p class="horo">{{ data.1.time_created}}</p>
 					</div>
-					<p>{{ data.1.headline }} - {{ data.1.rating }}</p>
+					<p class="review-headline">{{ data.1.headline }}</p>
+					<div class="rating">
+					{% for i in data.2 %}
+						★
+					{% endfor %}
+					</div>
+
 					<p>{{ data.1.body }}</p>
 					<div class="ticket-review border">
 						<div class="entete">
@@ -45,12 +51,10 @@
 								<p>Ticket - Vous</p>
 							{% else %}
 								<p>Ticket - {{ data.1.ticket.user }}</p>
-							{% endif %}
-							<p>{{ data.1.ticket.time_created}}</p>				
+							{% endif %}		
+							<p>{{ data.1.ticket.title }}</p>
 						</div>
-						<p>{{ data.1.ticket.title }}</p>
-						<p>{{ data.1.ticket.description }}</p>
-						<img src="{{ data.1.ticket.image.url }}" alt="Image de la critique" style="max-height:300px">
+						<img class="img" src="{{ data.1.ticket.image.url }}" alt="Image de la critique">
 					</div>
 				</div>
 			{% endif %}

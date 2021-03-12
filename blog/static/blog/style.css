@@ -1,0 +1,85 @@
+.img {
+	height:40rem;
+	max-height: 20rem;
+	margin-bottom: 1rem;
+	margin: 1rem;
+}
+
+.contenu {
+
+}
+
+.post {
+	background-color: rgba(255,255,255,0.8);
+	border-radius: 0.8rem;
+}
+
+.ticket-review {
+	margin-bottom: 1rem;
+	border-radius: 0.4rem;
+}
+.review-headline {
+	font-size: 2rem;
+}
+
+.horo {
+	text-align: right;
+	margin-top: 0;
+}
+
+.entete {
+	margin-top: 1rem;
+	margin-left: 0.5rem;
+}
+
+.entete-title {
+	height: 0.5rem;
+}
+
+.action {
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 6rem;
+}
+
+.action-button {
+	margin: 2rem;
+	width: 20rem;
+	border-radius: 0.5rem;
+
+}
+
+a {
+	text-decoration: none;
+}
+
+.follow {
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 6rem;
+}
+
+.follow-input {
+	width: 80%;
+}
+
+.rating {
+	display: flex;
+	flex-direction: row;
+	height: 3rem;
+	font-size: 4rem;
+}
+
+.star {
+	font-size: 3rem;
+	vertical-align: middle;
+}
+
+#id_rating {
+	display: flex;
+	flex-direction: row;
+}
