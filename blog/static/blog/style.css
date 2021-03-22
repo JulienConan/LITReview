@@ -1,23 +1,29 @@
 .img {
 	height:40rem;
 	max-height: 20rem;
-	margin-bottom: 1rem;
-	margin: 1rem;
+	border-radius: 0.3rem;
+
 }
 
 .contenu {
+	background-color: rgb(30,30,30)
 
 }
 
 .post {
-	background-color: rgba(255,255,255,0.8);
+	padding: 1rem;
+	background-color: rgba(255,255,255,0.4);
 	border-radius: 0.8rem;
 }
 
 .ticket-review {
-	margin-bottom: 1rem;
-	border-radius: 0.4rem;
+	padding: 1rem;
+	border: 1px solid;
+	border-radius: 0.6rem;
+	border-color: rgb(0,0,0);
+	background-color: rgba(255,255,255,0.5);
 }
+
 .review-headline {
 	font-size: 2rem;
 }
@@ -25,11 +31,6 @@
 .horo {
 	text-align: right;
 	margin-top: 0;
-}
-
-.entete {
-	margin-top: 1rem;
-	margin-left: 0.5rem;
 }
 
 .entete-title {
@@ -53,6 +54,7 @@
 
 a {
 	text-decoration: none;
+	color: black;
 }
 
 .follow {
@@ -71,15 +73,26 @@ a {
 	display: flex;
 	flex-direction: row;
 	height: 3rem;
-	font-size: 4rem;
+	font-size: 2rem;
 }
 
-.star {
-	font-size: 3rem;
-	vertical-align: middle;
-}
 
 #id_rating {
 	display: flex;
 	flex-direction: row;
+}
+
+.buttons {
+	text-align: right;
+	margin: 0.5rem;
+}
+.button {
+	background-color: rgb(80,80,80);
+	border-radius: 0.4rem;
+	border-style: none;
+
+}
+
+.ticket-title {
+	font-size: 2rem;
 }

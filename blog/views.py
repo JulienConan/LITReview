@@ -187,6 +187,7 @@ def post(request):
 
 def follow(request):
     if request.user.is_authenticated:
+        all_users =[user.username for user in CustomUser.objects.filter(is_staff=False).order_by('username')]
         if request.method == 'POST':
             try:
                 followed_user = CustomUser.objects.get(
@@ -202,7 +203,10 @@ def follow(request):
             followed_user = UserFollows.objects.filter(user=request.user)
             users_follow_user = UserFollows.objects.filter(
                 followed_user=request.user)
-            return render(request, 'blog/follow.html', {'followed_user': followed_user, 'users_follow_user': users_follow_user})
+            return render(request, 'blog/follow.html', {
+                'followed_user': followed_user, 
+                'users_follow_user': users_follow_user,
+                'all_users' : all_users})
     else:
         return redirect('main')
 

@@ -1,12 +1,17 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
-<div class="container row w-50 mx-auto my-2" >
+<div class="container row w-50 mx-auto " >
 	<h2 class="text-center">Suivre d'autres utilisateurs</h2>
 	<form method="post">
     	{% csrf_token %}
 	<div class="follow">
-		<input type="" id="followed_user" name="followed_user" class="follow-input">
+		<input list="all-users" type="" id="followed_user" name="followed_user" class="follow-input">
+		<datalist id="all-users">
+			{% for user in all_users %}
+			<option value="{{ user }}">
+			{% endfor %}
+		</datalist>
 		<button class="button" type="submit">Envoyer</button>
 	</div>
 	</form>	

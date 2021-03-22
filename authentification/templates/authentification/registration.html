@@ -5,7 +5,7 @@
 <form action="{% url 'registration' %}" method="post">
     {% csrf_token %}
     <div class="container border row w-50 mx-auto">
-        <div id=title class="text-center">
+        <div id="title" class="text-center">
             <h2>Inscrivez-vous</h2>
         </div>
         {% if error_message %}

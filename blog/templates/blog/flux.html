@@ -14,27 +14,29 @@
 	{% if user.is_authenticated %}
 		{% for data in datas %}
 			{% if data.0 == "ticket" %}
-				<div class="post ticket border my-2">
+				<div class="post ticket my-2">
 					<div class="entete ">
 						{% if data.1.user == user %}
-							<p>Vous avez publié un ticket</p>
+							<p><strong>Vous avez publié un ticket</strong></p>
 						{% else %}
-							<p>{{ data.1.user}} a demandé une critique</p>
+							<p><strong>{{ data.1.user}} a demandé une critique</strong></p>
 						{% endif %}
-						<p>{{ data.1.time_created}}</p>				
+						<p class="horo">{{ data.1.time_created}}</p>				
 					</div>
-					<p>{{ data.1.title }}</p>
+					<p class="ticket-title">{{ data.1.title }}</p>
 					<p>{{ data.1.description }}</p>
 					<img class="img" src="{{ data.1.image.url }}" alt="Image du ticket {{ data.1.title}}">
 					{% if data.1.response == False %}
+					<div class="buttons">	
 						<button class="button"><a href="{% url 'create_response_review' data.1.pk %}">Créer une critique</a></button>
+					</div>
 					{% endif %}
 				</div>
 			{% endif %}
 			{% if data.0 == "review" %}
-				<div class="post review border my-2">
+				<div class="post review my-2">
 					<div class="entete">
-						<p class="entete-title">Vous avez publié une critique</p>
+						<p class="entete-title"><strong>Vous avez publié une critique</strong></p>
 						<p class="horo">{{ data.1.time_created}}</p>
 					</div>
 					<p class="review-headline">{{ data.1.headline }}</p>
@@ -45,16 +47,16 @@
 					</div>
 
 					<p>{{ data.1.body }}</p>
-					<div class="ticket-review border">
+					<div class="ticket-review">
 						<div class="entete">
 							{% if data.1.user == user %}
-								<p>Ticket - Vous</p>
+								<p><strong>Ticket - Vous</strong></p>
 							{% else %}
 								<p>Ticket - {{ data.1.ticket.user }}</p>
 							{% endif %}		
 							<p>{{ data.1.ticket.title }}</p>
 						</div>
-						<img class="img" src="{{ data.1.ticket.image.url }}" alt="Image de la critique">
+						<img class="img img-review" src="{{ data.1.ticket.image.url }}" alt="Image de la critique">
 					</div>
 				</div>
 			{% endif %}
